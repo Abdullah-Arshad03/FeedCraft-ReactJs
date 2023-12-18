@@ -1,9 +1,11 @@
 import React from "react";
+import SignIn from "./Pages/SignIn";
 
 
 const App =()=>{
   return(<>
-  <h5>feed craft application on the way of the creation !</h5>
+
+  <SignIn/>
   </>)
 }
 
