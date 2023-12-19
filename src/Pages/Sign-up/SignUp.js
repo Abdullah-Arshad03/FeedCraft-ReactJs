@@ -10,7 +10,7 @@ const SignUp = () =>{
     const [password , setPassword] = useState('')
 
     const dataa = {
-        name : name ,
+         name : name ,
         email : email,
         password : password
     }
@@ -38,10 +38,11 @@ const SignUp = () =>{
          <h4 className=" "> <span className=" font-semibold">Welcome!</span>  please enter your details to register!</h4>
      <form className="sign-in-form" onSubmit={(event)=>{
          event.preventDefault();
-        //  axios.post('http://localhost:8080/auth/signup' , data ).then((resolve)=>{
-        //      console.log(resolve)
+         console.log(dataa)
+         axios.post('http://localhost:8080/auth/signup', dataa  ).then((resolve)=>{
+             console.log(resolve)
      
-        //  }).catch(err =>{console.log(err)})
+         }).catch(err =>{console.log(err)})
 
      }}>
         <div className="input-feilds  flex flex-col">
