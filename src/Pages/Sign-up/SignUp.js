@@ -41,6 +41,7 @@ const SignUp = () =>{
          console.log(dataa)
          axios.post('http://localhost:8080/auth/signup', dataa  ).then((resolve)=>{
              console.log(resolve)
+             console.log('fetched')
      
          }).catch(err =>{console.log(err)})
 
