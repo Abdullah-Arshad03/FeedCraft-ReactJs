@@ -1,9 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link , useNavigate } from "react-router-dom";
 import { useState } from "react";
-import axios from "axios";
 
 const SignUp = () => {
+
+    const navigate = useNavigate()
   const [name, setName] = useState("");
   const [email, setemail] = useState("");
   const [password, setPassword] = useState("");
@@ -13,6 +14,29 @@ const SignUp = () => {
     email: email,
     password: password,
   };
+
+  const onSubmit = (event) =>{
+     
+        event.preventDefault();
+        console.log(data);
+         fetch('http://localhost:8080/auth/signup', {
+          method : 'POST',
+          body : JSON.stringify(data),
+          headers : {
+              "Content-Type" : 'application/json'
+      }
+         }).then((res)=>{
+          return res.json()
+
+         }).then((result)=>{
+          const response = result
+              console.log('response on successful signup ',response)
+              navigate('/signin')
+         }).catch((error)=>{
+          console.log(error)
+         })
+      
+  }
 
   return (
     <>
@@ -50,25 +74,7 @@ const SignUp = () => {
               </h4>
               <form
                 className="sign-in-form"
-                onSubmit={(event) => {
-                  event.preventDefault();
-                  console.log(data);
-                   fetch('http://localhost:8080/auth/signup', {
-                    method : 'POST',
-                    body : JSON.stringify(data),
-                    headers : {
-                        "Content-Type" : 'application/json'
-                }
-                   }).then((res)=>{
-                    return res.json()
-
-                   }).then((result)=>{
-                    const response = result
-                        console.log(response)
-                   }).catch((error)=>{
-                    console.log(error)
-                   })
-                }}
+                onSubmit={onSubmit}
               >
                 <div className="input-feilds flex flex-col">
                   <input

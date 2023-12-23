@@ -1,7 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+
+
+
+
+
+
 
 const SignIn = () => {
+
+  const [email , setEmail ] = useState('')
+  const [password , setPassword] = useState('')
+const [ token , setToken] = useState('')
+// const Token = token
+
+
+
+
+  const data = {
+    email : email,
+    password : password
+  }
+
+  const onSubmit = (event) =>{
+    event.preventDefault()
+    console.log(data)
+    axios.post('http://localhost:8080/auth/signin', data  ).then((res)=>{
+      console.log(res)
+      const token = res.data.token
+      console.log(token)
+      setToken(token)
+    }).catch(err=>{console.log(err)})
+    
+  }
+
+
   return (
     <>
       <div className="sign-in-page flex justify-center align-middle bg-gray-200 w-100 h-[100vh] items-center">
@@ -36,14 +70,22 @@ const SignIn = () => {
                 <span className=" font-semibold">Welcome back! </span> please
                 enter your details!
               </h4>
-              <form className="sign-in-form">
+              <form className="sign-in-form" onSubmit={onSubmit}>
                 <div className="input-feilds flex flex-col">
                   <input
+                    onChange={(event)=>{
+                      const email = event.target.value
+                      setEmail(email)
+                    }}
                     className="mb-2 border-1px-black pl-3 pr-3 pt-2 pb-2 border border-gray-300"
                     type="email"
                     placeholder="Enter your email"
                   ></input>
                   <input
+                    onChange={(event)=>{
+                      const password = event.target.value
+                      setPassword(password)
+                    }}
                     className="mb-2 border-1px-black pl-3 pr-3 pt-2 pb-2 border border-gray-300"
                     type="password"
                     placeholder="Enter your Password"
@@ -65,7 +107,7 @@ const SignIn = () => {
                     Don't have an account ?{" "}
                     <span className="underline text-blue-600">
                       {" "}
-                      <Link to="/signup">sign up</Link>{" "}
+                      <Link to="/signup">sign up</Link>{""}
                     </span>
                   </h4>
                 </div>
