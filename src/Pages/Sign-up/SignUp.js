@@ -2,7 +2,13 @@ import React from "react";
 import { Link , useNavigate } from "react-router-dom";
 import { useState } from "react";
 
+
+
+
+
 const SignUp = () => {
+
+ 
 
     const navigate = useNavigate()
   const [name, setName] = useState("");
@@ -16,8 +22,8 @@ const SignUp = () => {
   };
 
   const onSubmit = (event) =>{
-     
-        event.preventDefault();
+
+      event.preventDefault(); 
         console.log(data);
          fetch('http://localhost:8080/auth/signup', {
           method : 'POST',

@@ -1,22 +1,21 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import axios from "axios";
-
-
-
+import { useContext } from "react";
+import AuthCont from "./AuthCont";
+import { useNavigate } from "react-router-dom";
 
 
 
 
 const SignIn = () => {
+  
+ const navigate = useNavigate()
+  const a = useContext(AuthCont)
 
   const [email , setEmail ] = useState('')
   const [password , setPassword] = useState('')
-const [ token , setToken] = useState('')
 // const Token = token
-
-
-
 
   const data = {
     email : email,
@@ -28,9 +27,11 @@ const [ token , setToken] = useState('')
     console.log(data)
     axios.post('http://localhost:8080/auth/signin', data  ).then((res)=>{
       console.log(res)
-      const token = res.data.token
-      console.log(token)
-      setToken(token)
+      const Token = res.data.token
+      console.log('just created token here!',Token)
+      a.jsonn = Token
+      navigate('/')
+
     }).catch(err=>{console.log(err)})
     
   }
@@ -38,6 +39,8 @@ const [ token , setToken] = useState('')
 
   return (
     <>
+
+
       <div className="sign-in-page flex justify-center align-middle bg-gray-200 w-100 h-[100vh] items-center">
         <div className="whole-container flex flex-col sm:flex-row w-full max-w-screen-md h-auto sm:h-96 items-center justify-center drop-shadow-lg">
           <div className="right-container bg-black w-full sm:w-1/3 h-48 sm:h-96 flex justify-center items-center">
