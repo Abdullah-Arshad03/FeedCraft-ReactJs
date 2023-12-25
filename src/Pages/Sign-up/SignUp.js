@@ -5,6 +5,8 @@ import Footer from "../../Components/Footer";
 
 const SignUp = () => {
 
+ 
+
     const navigate = useNavigate()
   const [name, setName] = useState("");
   const [email, setemail] = useState("");

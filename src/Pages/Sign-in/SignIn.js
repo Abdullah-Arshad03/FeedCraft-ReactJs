@@ -2,16 +2,18 @@ import React, { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import axios from "axios";
 import { useContext } from "react";
-import AuthCont from "./AuthCont";
 import { useNavigate } from "react-router-dom";
 import Footer from "../../Components/Footer";
+import { useAuth } from "./AuthContext";
+
 
 
 
 const SignIn = () => {
   
+  const {storeToken} = useAuth();
+
  const navigate = useNavigate()
-  const a = useContext(AuthCont)
 
   const [email , setEmail ] = useState('')
   const [password , setPassword] = useState('')
@@ -29,7 +31,7 @@ const SignIn = () => {
       console.log(res)
       const Token = res.data.token
       console.log('just created token here!',Token)
-      a.jsonn = Token
+      storeToken(Token)
       navigate('/feed')
 
     }).catch(err=>{console.log(err)})

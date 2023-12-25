@@ -10,6 +10,7 @@ import Footer from "../../Components/Footer";
 
 
 
+
 const customStyles = {
     content: {
       top: '50%',
@@ -35,11 +36,14 @@ const Feed = ()=>{
 
 
   let subtitle;
+  const [token , setToken] = useState(null)
   const [modalIsOpen, setIsOpen] = useState(false);
   const [ Title, setTitle] = useState('')
   const [ Image, setImage] = useState('')
   const [ Content, setContent] = useState('')
   const [posts , setPosts] = useState([])
+
+  
 
 
   useEffect(()=>{
@@ -80,14 +84,14 @@ const Feed = ()=>{
 
   }
 
-  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QzQGdtYWlsLmNvbSIsInVzZXJJZCI6IjY1ODZlMDc0YzAzMGVjZjBlZGZiMzQyNiIsImlhdCI6MTcwMzUzMDI2NiwiZXhwIjoxNzAzNTMzODY2fQ.8WnJ5kI_7wuSEkbBF0yxlxx7FUTr2J9saq7Yv27bRHs'
-
   const formData = new FormData()
   formData.append('title' , Title)
   formData.append('image' , Image)
   formData.append('content' , Content)
 
   useEffect(()=>{
+    const storedToken = localStorage.getItem('token')
+    setToken(storedToken)
 
     axios.get('http://localhost:8080/feed/posts' , {
         headers : {
@@ -133,8 +137,6 @@ const Feed = ()=>{
     
   }
 
-
- 
     return(<>
  <Navbar feed = {feed} />
  <ToastContainer autoClose={5000}/>
