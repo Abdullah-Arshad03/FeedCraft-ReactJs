@@ -14,7 +14,7 @@ const Navbar = ({feed}) =>{
                 }}> FeedCraft</h1>
 
            {feed ? (
-  <p className="mr-20 mt-3"><a  className=" cursor-pointer hover:text-[#114B5F]  ml-4  heading font-mono font-semibold text-2xl"  style={{
+  <p className="mr-5 mt-3"><a  className=" cursor-pointer hover:text-[#114B5F]  ml-4  heading font-mono font-semibold text-2xl"  style={{
     fontFamily: "'Poiret One', sans-serif"}} href="/feed">Feed</a></p>
 ) : (
   <></>

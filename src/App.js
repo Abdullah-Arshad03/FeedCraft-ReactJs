@@ -5,7 +5,6 @@ import {  Route, Routes } from "react-router-dom";
 import AuthProvider from "./Pages/Sign-in/AuthProvider";
 import LandingPage from "./Pages/LandingPage/LandingPage";
 import Feed from "./Pages/Feed/Feed";
-
 const App =()=>{
   return(<>
   
@@ -15,6 +14,8 @@ const App =()=>{
   <Route path="/signup" element={<SignUp></SignUp>}/>
   <Route path="/" element={<LandingPage/>}/>
   <Route path="/feed" element={<Feed></Feed>}/>
+  
+
 
 
   </Routes>
