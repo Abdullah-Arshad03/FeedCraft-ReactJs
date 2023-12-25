@@ -3,8 +3,9 @@ import Navbar from "../../Components/Navbar";
 import Card from "../../Components/Card";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Modal from 'react-modal';
+import Modal, { contextType } from 'react-modal';
 import { useState } from "react";
+import axios from "axios";
 
 
 
@@ -24,14 +25,20 @@ const customStyles = {
 
 const Feed = ()=>{
 
+    
+
     const notify = ()=>{
         toast('Wow soo easy!')
     }
     const feed = true
 
 
-    let subtitle;
+  let subtitle;
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [ Title, setTitle] = useState('')
+  const [ Image, setImage] = useState('')
+  const [ Content, setContent] = useState('')
+
 
   useEffect(()=>{
     Modal.setAppElement('#modal');
@@ -52,6 +59,69 @@ const Feed = ()=>{
   function closeModal() {
     setIsOpen(false);
   }
+
+  const title = (event)=>{
+    console.log(event.target.value)
+    const value = event.target.value
+    setTitle(value)
+  }
+  const file = (event)=>{
+    const file = event.target.files[0];
+    console.log(file) // Access the first file in the array
+    setImage(file);
+
+  }
+  const content = (event)=>{
+    console.log(event.target.value)
+    const value = event.target.value
+    setContent(value)
+
+  }
+  const formData = new FormData()
+  formData.append('title' , Title)
+  formData.append('image' , Image)
+  formData.append('content' , Content)
+
+  useEffect(()=>{
+
+    axios.get('http://localhost:8080/feed/posts' , {
+        headers : {
+            'Authorization': 'bearer ' + token
+        }
+    }).then((posts)=>{
+        console.log(posts)
+    }).catch(err=>{
+        console.log(err)
+    })
+
+  }, [])
+
+  
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QzQGdtYWlsLmNvbSIsInVzZXJJZCI6IjY1ODZlMDc0YzAzMGVjZjBlZGZiMzQyNiIsImlhdCI6MTcwMzUyMDgxMCwiZXhwIjoxNzAzNTI0NDEwfQ.k49sKBe6e803TShAGJY0_3gNZBu962-CPcnXaWbvkC0'
+
+ 
+
+  const submit = (event)=>{
+    event.preventDefault()
+    console.log(formData)
+    axios.post('http://localhost:8080/feed/post', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data', // Set the content type
+      'Authorization': 'bearer ' + token,
+    },
+  })
+  .then((response) => {
+    console.log(response.data);
+    closeModal()
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+
+    
+  }
+
+ 
     return(<>
  <Navbar feed = {feed}/>
  <ToastContainer autoClose={5000}/>
@@ -70,14 +140,15 @@ const Feed = ()=>{
         style={customStyles}
         contentLabel="Example Modal"
       >
-        <h2>Create Post</h2>
-        <form method="POST">
+        <h2 className="block text-gray-700 text-sm font-bold mb-2">Create Post</h2>
+        <form method="POST" onSubmit={submit} enctype="multipart/form-data">
 
           <div className="mb-4">
             <label htmlFor="title" className="block text-gray-700 text-sm font-bold mb-2">
               Title:
             </label>
             <input
+              onChange={title}
               type="text"
               id="title"
               name="title"
@@ -90,33 +161,22 @@ const Feed = ()=>{
             <label htmlFor="image" className="block text-gray-700 text-sm font-bold mb-2">
               Choose Image:
             </label>
-            <input type="file" id="image" name="image" />
+
+            <input onChange={file} type="file" id="image" name="image" />
           </div>
 
           <div className="mb-6">
             <label htmlFor="description" className="block text-gray-700 text-sm font-bold mb-2">
-              Description:
+              Content:
             </label>
             <textarea
-              id="description"
-              name="description"
+            onChange={content}
+              id="content"
+              name="content"
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               placeholder="Enter description"
               rows="4"
             ></textarea>
-          </div>
-
-          <div className="mb-4">
-            <label htmlFor="additionalInput" className="block text-gray-700 text-sm font-bold mb-2">
-              Additional Input:
-            </label>
-            <input
-              type="text"
-              id="additionalInput"
-              name="additionalInput"
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              placeholder="Enter additional information"
-            />
           </div>
 
         
@@ -134,7 +194,9 @@ const Feed = ()=>{
       </Modal>
 
  </div>
+ {
  <Card/>
+ }
 
       
     </>)

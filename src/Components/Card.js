@@ -13,6 +13,7 @@ const Card = () => {
       <p className="text-gray-600 mb-4">
         Some quick example text to build on the card title and make up the bulk of the card's content.
       </p>
+      
       <Button color='#FBFCFA' name='view'/>
      
     </div>
