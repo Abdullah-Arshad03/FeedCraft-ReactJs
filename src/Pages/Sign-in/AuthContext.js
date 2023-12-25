@@ -7,8 +7,12 @@ const AuthProvider = ({ children }) => {
     return localStorage.setItem("token", serverToken);
   };
 
+  const removeToken = () => {
+    localStorage.removeItem("token");
+  };
+
   return (
-    <AuthContext.Provider value={{ storeToken }}>
+    <AuthContext.Provider value={{ storeToken , removeToken }}>
       {children}
     </AuthContext.Provider>
   );

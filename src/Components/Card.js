@@ -2,7 +2,7 @@ import React from "react";
 import Button from "./Button";
 
 
-const Card = ({title , content , imageUrl , postId}) => {
+const Card = ({title , content , imageUrl , postId , token , logout}) => {
   const image = 'http://localhost:8080/'+ imageUrl
   const url = 'http://localhost:8080/feed/post/'+postId
   return (
@@ -16,7 +16,7 @@ const Card = ({title , content , imageUrl , postId}) => {
        {content}
       </p>
 
-      <Button color='#FBFCFA' name='Delete' postId ={postId} Url={url}/>
+      <Button color='#FBFCFA' name='Delete' Url={url} token = {token} logout={logout}/>
      
     </div>
   </div>
