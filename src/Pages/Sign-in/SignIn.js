@@ -30,7 +30,7 @@ const SignIn = () => {
       const Token = res.data.token
       console.log('just created token here!',Token)
       a.jsonn = Token
-      navigate('/')
+      navigate('/feed')
 
     }).catch(err=>{console.log(err)})
     
