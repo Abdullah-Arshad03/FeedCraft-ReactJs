@@ -71,7 +71,7 @@ const LandingPage = () => {
         </div>
       </div>
 
-      <div className=" text-sm text-center bg-slate-200">
+      <div className=" text-sm text-center bg-[#f5e8de]">
         <Footer />
       </div>
     </>

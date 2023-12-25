@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Modal, { contextType } from 'react-modal';
 import { useState } from "react";
 import axios from "axios";
+import Footer from "../../Components/Footer";
 
 
 
@@ -38,6 +39,7 @@ const Feed = ()=>{
   const [ Title, setTitle] = useState('')
   const [ Image, setImage] = useState('')
   const [ Content, setContent] = useState('')
+  const [posts , setPosts] = useState([])
 
 
   useEffect(()=>{
@@ -77,6 +79,9 @@ const Feed = ()=>{
     setContent(value)
 
   }
+
+  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QzQGdtYWlsLmNvbSIsInVzZXJJZCI6IjY1ODZlMDc0YzAzMGVjZjBlZGZiMzQyNiIsImlhdCI6MTcwMzUzMDI2NiwiZXhwIjoxNzAzNTMzODY2fQ.8WnJ5kI_7wuSEkbBF0yxlxx7FUTr2J9saq7Yv27bRHs'
+
   const formData = new FormData()
   formData.append('title' , Title)
   formData.append('image' , Image)
@@ -88,8 +93,14 @@ const Feed = ()=>{
         headers : {
             'Authorization': 'bearer ' + token
         }
-    }).then((posts)=>{
-        console.log(posts)
+    }).then((res)=>{
+        console.log(res)
+        console.log(res.data.posts)
+        const postss = res.data.posts
+
+        setPosts(postss)
+       
+        
     }).catch(err=>{
         console.log(err)
     })
@@ -97,7 +108,7 @@ const Feed = ()=>{
   }, [])
 
   
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QzQGdtYWlsLmNvbSIsInVzZXJJZCI6IjY1ODZlMDc0YzAzMGVjZjBlZGZiMzQyNiIsImlhdCI6MTcwMzUyMDgxMCwiZXhwIjoxNzAzNTI0NDEwfQ.k49sKBe6e803TShAGJY0_3gNZBu962-CPcnXaWbvkC0'
+
 
  
 
@@ -113,6 +124,7 @@ const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QzQGdtYWls
   .then((response) => {
     console.log(response.data);
     closeModal()
+    setPosts((posts)=> [...posts, response.data.post])
   })
   .catch((error) => {
     console.error(error);
@@ -121,15 +133,16 @@ const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QzQGdtYWls
     
   }
 
+
  
     return(<>
- <Navbar feed = {feed}/>
+ <Navbar feed = {feed} />
  <ToastContainer autoClose={5000}/>
  <div className="post-button mt-2 flex justify-center">
  {/* <h1 id='modal'></h1> */}
 
     <div className="post-button" id="modal">
-    <button  onClick={openModal} className="btn text-[#114B5F] border border-gray-400 hover:border-gray-500 pt-1 pb-1 rounded hover:text-[#114B5F] hover:bg-slate-100"><a className="font-semibold pr-6 pl-6" href="">Create Post</a> </button> 
+    <button  onClick={openModal} className="btn text-[#114B5F] border border-gray-400 hover:border-gray-500 pt-1 pb-1 rounded hover:text-[#114B5F] hover:bg-slate-100"><a className="font-semibold pr-6 pl-6 " href="">+</a> </button> 
     </div>
     
 
@@ -194,9 +207,18 @@ const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QzQGdtYWls
       </Modal>
 
  </div>
- {
- <Card/>
- }
+
+     <div className="flex justify-around items-center ">
+        {posts.map((post) => (
+            <div className="flex justify-around">
+          <Card title={post.title} content = {post.content} imageUrl = {post.imageUrl} postId = {post._id}   />
+          </div>
+        ))}
+      </div>
+
+      <div className=" text-sm text-center bg-[#f5e8de]">
+        <Footer />
+      </div>
 
       
     </>)

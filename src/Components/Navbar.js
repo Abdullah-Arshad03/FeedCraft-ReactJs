@@ -23,7 +23,14 @@ const Navbar = ({feed}) =>{
            <ul className=" flex justify-evenly w-auto ">
             {/* <li><a href="/feed">Login</a></li> */}
             {/* <li><a href="/feed">Logout</a></li> */}
+            {!feed ? (
             <Button link= {link} color = {color} name={Register}></Button>
+
+            ) : ( 
+            <Button link='/' color = {color} name = 'logout'></Button>
+
+            )} 
+
            </ul>
         </div>
     </div>

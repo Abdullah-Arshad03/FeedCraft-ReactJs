@@ -1,14 +1,9 @@
 import React from "react";
 import { Link , useNavigate } from "react-router-dom";
 import { useState } from "react";
-
-
-
-
+import Footer from "../../Components/Footer";
 
 const SignUp = () => {
-
- 
 
     const navigate = useNavigate()
   const [name, setName] = useState("");
@@ -46,16 +41,16 @@ const SignUp = () => {
 
   return (
     <>
-      <div className="sign-in-page flex justify-center align-middle bg-gray-200 w-100 h-[100vh] items-center">
+      <div className="sign-in-page flex justify-around align-middle bg-gray-200 w-100 h-[100vh] items-center ">
         <div className="whole-container flex flex-col sm:flex-row w-full max-w-screen-md h-auto sm:h-96 items-center justify-center drop-shadow-lg">
-          <div className="right-container bg-black w-full sm:w-1/3 h-48 sm:h-96 flex justify-center items-center">
+          <div className="right-container bg-[#f5e8de] w-full sm:w-1/3 h-48 sm:h-96 flex justify-center items-center">
             <div className="flex flex-col text-center sm:text-left">
               <h2
                 style={{
                   fontFamily: "'Poiret One', sans-serif",
                   fontWeight: "bolder",
                 }}
-                className="text-white"
+                className="text-black"
               >
                 READY TO CRAFT YOUR FEED?
               </h2>
@@ -65,7 +60,7 @@ const SignUp = () => {
                   fontFamily: "'Poiret One', sans-serif",
                   fontWeight: "bolder",
                 }}
-                className="text-2xl text-white"
+                className="text-2xl text-black"
               >
                 REGISTER NOW!
               </h2>
@@ -117,7 +112,7 @@ const SignUp = () => {
                 <div className="buttons flex flex-col">
                   <button
                     type="submit"
-                    className="mb-2 border-1px-black pl-3 pr-3 pt-2 pb-2 border border-gray-300 bg-slate-300 text-black hover:bg-black hover:text-white"
+                    className="mb-2 border-1px-black pl-3 pr-3 pt-2 pb-2  bg-slate-300 text-black hover:bg-[#f5e8de] hover:text-black"
                   >
                     Register
                   </button>
@@ -136,6 +131,15 @@ const SignUp = () => {
             </div>
           </div>
         </div>
+        <div className="flex flex-col"> 
+        <p className="text-7xl" style={{fontFamily : "'Poiret One', sans-serif"}}>FEED <br/> CRAFT</p>
+        <p className="text-xs"> &copy; Abdullah Bin Arshad</p>
+        </div>
+
+        
+      </div>
+      <div className=" text-sm text-center bg-[#f5e8de]">
+        <Footer />
       </div>
     </>
   );
