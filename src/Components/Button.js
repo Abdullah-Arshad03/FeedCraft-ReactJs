@@ -11,13 +11,10 @@ const logout = ()=>{
     navigate('/signin')
 }
 
-     const pId = postId
-
     const onClick =(event)=>{
         // event.preventDefault()
-if(name==='logout'){
+if(name === 'logout'){
     logout()
-
 }
        if(Url)
        {
@@ -31,6 +28,10 @@ if(name==='logout'){
              
           }).catch((err)=>{console.log(err)})
        }
+  if (link=== '/signin' || link ==='/signup'){
+    navigate(`${link}`)
+  }
+
        
 
     }
