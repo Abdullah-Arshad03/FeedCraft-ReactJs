@@ -8,7 +8,7 @@ import { useState } from "react";
 import axios from "axios";
 import Footer from "../../Components/Footer";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../Sign-in/AuthContext";
+import openSocket from 'socket.io-client'
 
 const customStyles = {
   content: {
@@ -22,12 +22,8 @@ const customStyles = {
 };
 
 const Feed = () => {
-    const {removeToken} = useAuth()
 const navigate = useNavigate()
-    const logout = ()=>{
-        removeToken()
-        navigate('/signin')
-    }
+   
   const notify = () => {
     toast("Welcome to FeedCraft !");
   };
@@ -82,7 +78,6 @@ const navigate = useNavigate()
     notify();
     const storedToken = localStorage.getItem("token");
     setToken(storedToken);
-
     axios
       .get("http://localhost:8080/feed/posts", {
         headers: {
@@ -99,6 +94,9 @@ const navigate = useNavigate()
       .catch((err) => {
         console.log(err);
       });
+      openSocket('http://localhost:8080/')
+  
+
   }, []);
 
   const submit = (event) => {
@@ -115,6 +113,7 @@ const navigate = useNavigate()
         console.log(response.data);
         closeModal();
         setPosts((posts) => [...posts, response.data.post]);
+        
       })
       .catch((error) => {
         console.error(error);
@@ -123,19 +122,27 @@ const navigate = useNavigate()
 
   return (
     <>
-      <Navbar feed={feed} />
+      <Navbar feed={feed}  />
       <div className="post-button mt-2 flex justify-center">
         {/* <h1 id='modal'></h1> */}
 
         <div className="post-button" id="modal">
-          <button
+          {!localStorage.getItem('token') ? (
+              <p className="text-[#114B5F] mb-4 font-semibold">Login/Register Now! to create your feed!</p>
+          ):
+          (<>
+           <button
             onClick={openModal}
             className="btn text-[#114B5F] border border-gray-400 hover:border-gray-500 pt-1 pb-1 rounded hover:text-[#114B5F] hover:bg-slate-100"
           >
             <a className="font-semibold pr-6 pl-6 " href="">
               +
-            </a>{" "}
+            </a>
           </button>
+             
+          </>
+          )
+          }
         </div>
         <ToastContainer autoClose={1000} />
 
@@ -222,15 +229,18 @@ const navigate = useNavigate()
               imageUrl={post.imageUrl}
               postId={post._id}
               token={token}
-              logout = {logout}
+             
             />
           </div>
         ))}
       </div>
 
-      <div className=" text-sm text-center bg-[#f5e8de]">
-        <Footer />
-      </div>
+      {/* <div className=" text-sm text-center bg-[#f5e8de]"> */}
+      <div className=" signinLine text-center text-xs pt-10">
+          <p>Developed by &copy; Abdullah Bin Arshad</p>
+            
+          </div>
+      {/* </div> */}
     </>
   );
 };

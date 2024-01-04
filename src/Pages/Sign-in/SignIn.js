@@ -11,7 +11,7 @@ import { useAuth } from "./AuthContext";
 
 const SignIn = () => {
   
-  const {storeToken} = useAuth();
+  const {storeToken, loggedIn} = useAuth();
 
  const navigate = useNavigate()
 
@@ -32,6 +32,7 @@ const SignIn = () => {
       const Token = res.data.token
       console.log('just created token here!',Token)
       storeToken(Token)
+      // loggedIn(Token)
       navigate('/feed')
 
     }).catch(err=>{console.log(err)})

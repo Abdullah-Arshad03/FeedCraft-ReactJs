@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Navbar from "../../Components/Navbar";
 import Button from "../../Components/Button";
 import Footer from "../../Components/Footer";
@@ -10,6 +10,7 @@ const LandingPage = () => {
   const name1 = 'Register Now'
   const name2 = 'Sign in'
   const feed = false
+ 
   return (
     <>
       <div>
@@ -34,7 +35,7 @@ const LandingPage = () => {
                 }}
               >
                 {" "}
-                <a href="/signup"> FeedCraft ! </a>{" "}
+                <a href="/feed"> FeedCraft ! </a>{" "}
               </span>
             </h1>
           </div>

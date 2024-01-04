@@ -1,8 +1,13 @@
 import React from "react";
 import Button from "./Button";
+import { useAuth } from "../Pages/Sign-in/AuthContext";
 
 
-const Card = ({title , content , imageUrl , postId , token , logout}) => {
+
+
+const Card = ({title , content , imageUrl , postId , token }) => {
+
+
   const image = 'http://localhost:8080/'+ imageUrl
   const url = 'http://localhost:8080/feed/post/'+postId
   return (
@@ -16,8 +21,7 @@ const Card = ({title , content , imageUrl , postId , token , logout}) => {
        {content}
       </p>
 
-      <Button color='#FBFCFA' name='Delete' Url={url} token = {token} logout={logout}/>
-     
+     {!localStorage.getItem('token') ? <></> : <Button color='#FBFCFA' name='Delete' Url={url} token = {token} />}
     </div>
   </div>
 </div>
