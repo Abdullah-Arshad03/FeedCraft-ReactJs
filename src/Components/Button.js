@@ -12,7 +12,7 @@ const Button = ({ link, name, postId, Url , token }) => {
   };
 
   const onClick = (event) => {
-    // event.preventDefault()
+    event.preventDefault()
     if (name === "logout") {
       logout();
     }
@@ -27,6 +27,7 @@ const Button = ({ link, name, postId, Url , token }) => {
         })
         .then((res) => {
           console.log("post deleted ", res);
+          navigate('/feed')
         })
         .catch((err) => {
           console.log(err);

@@ -4,13 +4,6 @@ const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
 
-  const loggedIn = (token)=>{
-    let logIn ;
-    if(!token){
-      logIn = false
-    }
-    logIn = true
-  }
    
   const storeToken = (serverToken) => {
     return localStorage.setItem("token", serverToken);
@@ -21,7 +14,7 @@ const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ storeToken , removeToken , loggedIn }}>
+    <AuthContext.Provider value={{ storeToken , removeToken  }}>
       {children}
     </AuthContext.Provider>
   );

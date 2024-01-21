@@ -37,6 +37,9 @@ const navigate = useNavigate()
   const [Content, setContent] = useState("");
   const [posts, setPosts] = useState([]);
 
+
+
+
   function openModal(event) {
     event.preventDefault();
 
