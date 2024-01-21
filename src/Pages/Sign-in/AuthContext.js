@@ -9,7 +9,11 @@ const AuthProvider = ({ children }) => {
 
     const time = new Date()
     const getTime = time.getTime() + 60 * 60 * 1000 ; // this is the time in mili seconds
-    return localStorage.setItem("token", serverToken);
+    const expirationTime = getTime.toString()
+
+    localStorage.setItem("token", serverToken);
+    localStorage.setItem('expiry' , expirationTime)
+
   };
 
   const removeToken = () => {
