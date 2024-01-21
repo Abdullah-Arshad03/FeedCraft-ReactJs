@@ -11,7 +11,7 @@ import { useAuth } from "./AuthContext";
 
 const SignIn = () => {
   
-  const {storeToken, loggedIn} = useAuth();
+  const {storeToken} = useAuth();
 
  const navigate = useNavigate()
 

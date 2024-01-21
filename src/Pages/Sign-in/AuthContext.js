@@ -6,6 +6,9 @@ const AuthProvider = ({ children }) => {
 
    
   const storeToken = (serverToken) => {
+
+    const time = new Date()
+    const getTime = time.getTime() + 60 * 60 * 1000 ; // this is the time in mili seconds
     return localStorage.setItem("token", serverToken);
   };
 
