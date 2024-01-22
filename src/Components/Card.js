@@ -5,11 +5,13 @@ import { useAuth } from "../Pages/Sign-in/AuthContext";
 
 
 
-const Card = ({title , content , imageUrl , postId , token , posts , setPost , creator }) => {
+const Card = ({title , content , imageUrl , postId , token , posts , setPost , creator , userId}) => {
 
 
   const image = 'http://localhost:8080/'+ imageUrl
   const url = 'http://localhost:8080/feed/post/'+postId
+
+  const user = localStorage.getItem('userId')
   return (
     <>
       <div className="container">
@@ -23,7 +25,7 @@ const Card = ({title , content , imageUrl , postId , token , posts , setPost , c
       <p className="text-gray-600 mb-4">
        {content}
       </p>
-     {!localStorage.getItem('token') ? <></> : <Button color='#FBFCFA' name='Delete' Url={url} token = {token} posts={posts}  setPost = {setPost} postId = {postId}/>}
+     {!localStorage.getItem('token')  || user!== userId? <></> : <Button color='#FBFCFA' name='Delete' Url={url} token = {token} posts={posts}  setPost = {setPost} postId = {postId}/>}
     </div>
    
   </div>

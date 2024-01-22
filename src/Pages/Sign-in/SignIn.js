@@ -44,10 +44,10 @@ const SignIn = () => {
     axios.post('http://localhost:8080/auth/signin', data  ).then((res)=>{
       console.log(res)
       const Token = res.data.token
-      // const status = res.message.response.status;
+      localStorage.setItem('userId' , res.data.userId)
+      
       console.log('just created token here!',Token)
       storeToken(Token)
-      // loggedIn(Token)
       navigate('/feed')
 
     }).catch(err=>{

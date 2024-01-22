@@ -232,6 +232,7 @@ const navigate = useNavigate()
               posts = {posts}
               setPost = {setPosts}
               creator={post.creator.name}
+              userId = {post.creator._id}
              
             />
           </div>
