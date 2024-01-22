@@ -3,21 +3,24 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../Pages/Sign-in/AuthContext";
 
-const Button = ({ link, name, postId, Url , token }) => {
+const Button = ({ link, name, postId, Url, token , posts , setPost }) => {
+
   const navigate = useNavigate();
   const { removeToken } = useAuth();
+
+
   const logout = () => {
     removeToken();
     navigate("/signin");
   };
 
   const onClick = (event) => {
-    event.preventDefault()
+    event.preventDefault();
     if (name === "logout") {
       logout();
     }
-    
-    if (Url) {
+
+    if (Url && name === 'Delete') {
       console.log(Url);
       axios
         .delete(Url, {
@@ -26,8 +29,10 @@ const Button = ({ link, name, postId, Url , token }) => {
           },
         })
         .then((res) => {
-          console.log("post deleted ", res);
-          navigate('/feed')
+     // filtering the post from the posts array . and returning the array with the posts whose id is not equal to the deleted post
+          setPost(posts.filter((post)=>{
+            return post._id !== postId
+          }));
         })
         .catch((err) => {
           console.log(err);
@@ -46,8 +51,8 @@ const Button = ({ link, name, postId, Url , token }) => {
       >
         <a className="font-semibold pr-6 pl-6" href="">
           {name}
-        </a>{" "}
-      </button>{" "}
+        </a>
+      </button>
     </>
   );
 };

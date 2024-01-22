@@ -2,6 +2,7 @@ import React from "react";
 import { Link , useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Footer from "../../Components/Footer";
+import toast, {Toaster} from "react-hot-toast";
 
 const SignUp = () => {
 
@@ -21,6 +22,25 @@ const SignUp = () => {
   const onSubmit = (event) =>{
 
       event.preventDefault(); 
+
+      if(name.trim() ==='' || email.trim()==='' || password.trim() === '')
+      {
+        toast.error('Please fill all feilds !',
+        {
+          position:'top-right'
+        })
+      }
+      else if(email.split(".")[1] !== 'com' ){
+        toast.error('Email is not valid !',{
+          position : 'top-right'
+        })
+      }
+      else if(password.trim().length <= 4){
+        toast.error('Password must contain atleast 5 characters!' ,{
+          position : 'top-right'
+        })
+      }
+      else{
         console.log(data);
          fetch('http://localhost:8080/auth/signup', {
           method : 'POST',
@@ -38,6 +58,7 @@ const SignUp = () => {
          }).catch((error)=>{
           console.log(error)
          })
+        }
       
   }
 
@@ -127,6 +148,7 @@ const SignUp = () => {
                       {" "}
                       <Link to="/signin">sign in</Link>{" "}
                     </span>
+                    <Toaster/>
                   </h4>
                 </div>
               </form>

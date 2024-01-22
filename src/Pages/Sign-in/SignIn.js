@@ -5,8 +5,7 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "../../Components/Footer";
 import { useAuth } from "./AuthContext";
-
-
+import toast, { Toaster } from 'react-hot-toast';
 
 
 const SignIn = () => {
@@ -17,7 +16,7 @@ const SignIn = () => {
 
   const [email , setEmail ] = useState('')
   const [password , setPassword] = useState('')
-// const Token = token
+
 
   const data = {
     email : email,
@@ -27,16 +26,44 @@ const SignIn = () => {
   const onSubmit = (event) =>{
     event.preventDefault()
     console.log(data)
+    if(email.trim() === "" || password.trim() === ""){
+      toast.error('please fill all feilds', {
+        position : "top-left",
+        duration : 2000
+      })
+    }
+    else if(password.trim().length <= 4){
+      toast.error('Password must contain atleast 5 characters', {
+        position : "top-left",
+        duration : 2000
+      })
+
+    }
+    else{
+    
     axios.post('http://localhost:8080/auth/signin', data  ).then((res)=>{
       console.log(res)
       const Token = res.data.token
+      // const status = res.message.response.status;
       console.log('just created token here!',Token)
       storeToken(Token)
       // loggedIn(Token)
       navigate('/feed')
 
-    }).catch(err=>{console.log(err)})
-    
+    }).catch(err=>{
+      console.log('this is the error',err)
+      const error = err
+      const statusCode = error.response.status
+      console.log('this is the status',statusCode)
+      if(statusCode === 401){
+        toast.error('Email or Password is Incorrect!',
+        {
+          position:'top-left'
+
+        })
+      }
+    })
+  }
   }
 
 
@@ -85,6 +112,7 @@ const SignIn = () => {
                   <input
                     onChange={(event)=>{
                       const email = event.target.value
+                     
                       setEmail(email)
                     }}
                     className="mb-2 border-1px-black pl-3 pr-3 pt-2 pb-2 border border-gray-300"
@@ -118,6 +146,7 @@ const SignIn = () => {
                     <span className="underline text-blue-600">
                       {" "}
                       <Link to="/signup">sign up</Link>{""}
+                      <Toaster/>
                     </span>
                   </h4>
                 </div>

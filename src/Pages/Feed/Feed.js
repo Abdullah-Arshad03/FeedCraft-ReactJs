@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import Navbar from "../../Components/Navbar";
 import Card from "../../Components/Card";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Modal, { contextType } from "react-modal";
 import { useState } from "react";
@@ -24,9 +23,6 @@ const customStyles = {
 const Feed = () => {
 const navigate = useNavigate()
    
-  const notify = () => {
-    toast("Welcome to FeedCraft !");
-  };
   const feed = true;
 
   let subtitle;
@@ -62,7 +58,7 @@ const navigate = useNavigate()
   };
   const file = (event) => {
     const file = event.target.files[0];
-    console.log(file); // Access the first file in the array
+    console.log('this is the file',file); // Access the first file in the array
     setImage(file);
   };
   const content = (event) => {
@@ -78,9 +74,9 @@ const navigate = useNavigate()
 
   useEffect(() => {
     Modal.setAppElement("#modal");
-    notify();
     const storedToken = localStorage.getItem("token");
     setToken(storedToken);
+   
     axios
       .get("http://localhost:8080/feed/posts", {
         headers: {
@@ -89,7 +85,7 @@ const navigate = useNavigate()
       })
       .then((res) => {
         console.log(res);
-        console.log(res.data.posts);
+        console.log('getting this : ',res.data.posts[0].creator.name);
         const postss = res.data.posts;
 
         setPosts(postss);
@@ -97,8 +93,8 @@ const navigate = useNavigate()
       .catch((err) => {
         console.log(err);
       });
-      openSocket('http://localhost:8080/')
-  
+      // openSocket('http://localhost:8080/')
+ 
 
   }, []);
 
@@ -147,7 +143,8 @@ const navigate = useNavigate()
           )
           }
         </div>
-        <ToastContainer autoClose={1000} />
+        
+        {/* <ToastContainer autoClose={1000} /> */}
 
         <Modal
           isOpen={modalIsOpen}
@@ -232,6 +229,9 @@ const navigate = useNavigate()
               imageUrl={post.imageUrl}
               postId={post._id}
               token={token}
+              posts = {posts}
+              setPost = {setPosts}
+              creator={post.creator.name}
              
             />
           </div>
