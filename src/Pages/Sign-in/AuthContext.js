@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState } from "react";
+import jwt_decode from "jwt-decode";
 
 const AuthContext = createContext();
 
@@ -6,6 +7,10 @@ const AuthProvider = ({ children }) => {
 
    
   const storeToken = (serverToken) => {
+
+    const decodedToken = jwt_decode(serverToken)
+    const jwtExpirationTime = decodedToken.exp * 1000 // multiplying with the 1000 to convert the seconds into the miliseconds
+  
 
     localStorage.setItem("token", serverToken);
   };
