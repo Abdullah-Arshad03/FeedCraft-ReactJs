@@ -60,6 +60,7 @@ const navigate = useNavigate()
     const file = event.target.files[0];
     console.log('this is the file',file); // Access the first file in the array
     setImage(file);
+    console.log('image wali file', Image)
   };
   const content = (event) => {
     console.log(event.target.value);
@@ -135,7 +136,7 @@ const navigate = useNavigate()
             className="btn text-[#114B5F] border border-gray-400 hover:border-gray-500 pt-1 pb-1 rounded hover:text-[#114B5F] hover:bg-slate-100"
           >
             <a className="font-semibold pr-6 pl-6 " href="">
-              +
+              Add Post
             </a>
           </button>
              
@@ -233,6 +234,7 @@ const navigate = useNavigate()
               setPost = {setPosts}
               creator={post.creator.name}
               userId = {post.creator._id}
+              oldImageFile = {Image}
              
             />
           </div>
