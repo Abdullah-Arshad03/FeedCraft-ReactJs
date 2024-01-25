@@ -60,7 +60,7 @@ const navigate = useNavigate()
     const file = event.target.files[0];
     console.log('this is the file',file); // Access the first file in the array
     setImage(file);
-    console.log('image wali file', Image)
+    console.log('image wali file' )
   };
   const content = (event) => {
     console.log(event.target.value);
@@ -101,7 +101,6 @@ const navigate = useNavigate()
 
   const submit = (event) => {
     event.preventDefault();
-    console.log(formData);
     axios
       .post("http://localhost:8080/feed/post", formData, {
         headers: {
@@ -113,6 +112,8 @@ const navigate = useNavigate()
         console.log(response.data);
         closeModal();
         setPosts((posts) => [...posts, response.data.post]);
+    console.log('this is the form data',formData);
+
         
       })
       .catch((error) => {

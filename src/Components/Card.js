@@ -4,6 +4,7 @@ import { useAuth } from "../Pages/Sign-in/AuthContext";
 import Modal, { contextType } from "react-modal";
 import { useState } from "react";
 import { useEffect } from "react";
+import axios from "axios";
 
 const customStyles = {
   content: {
@@ -16,44 +17,40 @@ const customStyles = {
   },
 };
 
-const Card = ({
-  title,
-  content,
-  imageUrl,
-  postId,
-  token,
-  posts,
-  setPost,
-  creator,
-  userId,
-  oldImageFile
-}) => {
+const Card = ({ title,content,imageUrl,postId,token,posts,setPost,creator, userId, oldImageFile}) => {
+
+
+  const [isEdit, setIsEdit] = useState(false)
   const [modalIsOpen, setIsOpen] = useState(false);
   const [editImage, setEditImage] = useState('')
   const [editTitle, setEditTitle] = useState('')
   const [editContent, setEditContent] = useState('')
 
-  const EditImage = (event)=>{
-        const editImageFile = event.target.file[0]
-        console.log('new image file',editImageFile)
-        setEditImage(editImageFile)
+
+  const editData = new FormData();
+
+
+  const EditImage =(event)=>{
+
+    console.log(event.target.files)
+    const newfile = event.target.files[0]
+    setEditImage(newfile)
+
   }
 
   const EditTitle =(event)=>{
-    const newTitle = event.target.value 
-    console.log(newTitle)
-    setEditTitle(newTitle)
+   const newTitle = event.target.value;
+   setEditTitle(newTitle)
   }
 
   const EditContent = (event)=>{
-    const newContent = event.target.value
-    console.log(newContent)
-    setEditContent(newContent)
+   const newContent = event.target.value;
+   setEditContent(newContent)
   }
 
   function openModal(event) {
     event.preventDefault();
-
+    setIsEdit(true)
     setIsOpen(true);
   }
 
@@ -63,18 +60,52 @@ const Card = ({
   }
 
   function closeModal() {
+    setIsEdit(false)
     setIsOpen(false);
   }
 
+
   useEffect(() => {
     Modal.setAppElement("#modal");
-    console.log('old image hy ',oldImageFile)
-  }, []);
+
+ 
+  },[]);
 
   const image = "http://localhost:8080/" + imageUrl;
   const url = "http://localhost:8080/feed/post/" + postId;
+  
 
   const user = localStorage.getItem("userId");
+
+  const onUpdate = (event)=>{
+
+    event.preventDefault()
+    editData.append('title' , editTitle)
+    editData.append('content', editContent)
+    if(editImage !== ''){
+      editData.append('image', editImage)
+    }
+    editData.append('image', imageUrl)
+
+   
+    console.log('these are the form Data Entries : ',[...editData.entries()] );
+
+
+    axios.put('http://localhost:8080/feed/post/'+ postId, editData , {
+      headers : {
+      Authorization : 'Bearer ' + token
+    }
+    }).then((res)=>{
+      console.log(res)
+    
+
+    }).catch((err)=>{
+      console.log(err)
+    })
+
+
+  }
+
 
   return (
     <>
@@ -133,10 +164,7 @@ const Card = ({
               </h2>
               <form
                 method="POST"
-                onSubmit={(event) => {
-                  event.preventDefault();
-                  console.log("form is submitted!");
-                }}
+                onSubmit={onUpdate}
                 enctype="multipart/form-data"
               >
                 <div className="mb-4">
@@ -148,7 +176,7 @@ const Card = ({
                   </label>
                   <input
                     onChange={EditTitle}
-                    value={title}
+                    // value={title}
                     type="text"
                     id="title"
                     name="title"
@@ -167,7 +195,6 @@ const Card = ({
 
                   <input
                     onChange={EditImage}
-                    
                     type="file"
                     id="image"
                     name="image"
@@ -182,10 +209,8 @@ const Card = ({
                     Content:
                   </label>
                   <textarea
-                    onChange={(event) => {
-                      console.log("event.target.value");
-                    }}
-                    value={content}
+                    onChange={EditContent}
+                    // value={content}
                     id="content"
                     name="content"
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -199,7 +224,7 @@ const Card = ({
                     type="submit"
                     className="btn text-[#114B5F] border border-gray-400 hover:border-gray-500 pt-1 pb-1 rounded hover:text-[#114B5F] hover:bg-slate-100 pr-3 pl-3"
                   >
-                    Submit
+                    Update
                   </button>
                   <button
                     className="btn text-[#114B5F] border border-gray-400 hover:border-gray-500 pt-1 pb-1 rounded hover:text-[#114B5F] hover:bg-slate-100 pr-3 pl-3"
