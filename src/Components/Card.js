@@ -24,8 +24,8 @@ const Card = ({ title,content,imageUrl,postId,token,posts,setPost,creator, userI
 
   const [modalIsOpen, setIsOpen] = useState(false);
   const [editImage, setEditImage] = useState('')
-  const [editTitle, setEditTitle] = useState('')
-  const [editContent, setEditContent] = useState('')
+  const [editTitle, setEditTitle] = useState(`${title}`)
+  const [editContent, setEditContent] = useState(`${content}`)
 
 
   const editData = new FormData();
@@ -72,10 +72,6 @@ const Card = ({ title,content,imageUrl,postId,token,posts,setPost,creator, userI
  
   },[]);
 
-  const image = `http://localhost:8080/${isEdit? updatedUrl : imageUrl}`;
-  const url = "http://localhost:8080/feed/post/" + postId;
-  
-
   const user = localStorage.getItem("userId");
 
   const onUpdate = (event)=>{
@@ -117,7 +113,6 @@ const Card = ({ title,content,imageUrl,postId,token,posts,setPost,creator, userI
           ...post,
           title : editTitle ,
           content : editContent,
-          // imageUrl : editImage
         }
       }
       console.log('this is the updated post : ',post)
@@ -133,6 +128,9 @@ const Card = ({ title,content,imageUrl,postId,token,posts,setPost,creator, userI
     closeModal();
   }
 
+
+  const image = `http://localhost:8080/${isEdit? updatedUrl : imageUrl}`;
+  const url = "http://localhost:8080/feed/post/" + postId;
 
   return (
     <>
@@ -203,7 +201,7 @@ const Card = ({ title,content,imageUrl,postId,token,posts,setPost,creator, userI
                   </label>
                   <input
                     onChange={EditTitle}
-                    // value={title}
+                    value={editTitle}
                     type="text"
                     id="title"
                     name="title"
@@ -237,7 +235,7 @@ const Card = ({ title,content,imageUrl,postId,token,posts,setPost,creator, userI
                   </label>
                   <textarea
                     onChange={EditContent}
-                    // value={content}
+                    value={editContent}
                     id="content"
                     name="content"
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
