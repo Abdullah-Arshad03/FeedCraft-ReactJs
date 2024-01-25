@@ -19,8 +19,9 @@ const customStyles = {
 
 const Card = ({ title,content,imageUrl,postId,token,posts,setPost,creator, userId, oldImageFile}) => {
 
+  const [isEdit , setIsEdit] = useState(false)
+  const [updatedUrl , setUpdatedUrl] = useState('')
 
-  const [isEdit, setIsEdit] = useState(false)
   const [modalIsOpen, setIsOpen] = useState(false);
   const [editImage, setEditImage] = useState('')
   const [editTitle, setEditTitle] = useState('')
@@ -50,7 +51,7 @@ const Card = ({ title,content,imageUrl,postId,token,posts,setPost,creator, userI
 
   function openModal(event) {
     event.preventDefault();
-    setIsEdit(true)
+
     setIsOpen(true);
   }
 
@@ -60,7 +61,7 @@ const Card = ({ title,content,imageUrl,postId,token,posts,setPost,creator, userI
   }
 
   function closeModal() {
-    setIsEdit(false)
+   
     setIsOpen(false);
   }
 
@@ -71,7 +72,7 @@ const Card = ({ title,content,imageUrl,postId,token,posts,setPost,creator, userI
  
   },[]);
 
-  const image = "http://localhost:8080/" + imageUrl;
+  const image = `http://localhost:8080/${isEdit? updatedUrl : imageUrl}`;
   const url = "http://localhost:8080/feed/post/" + postId;
   
 
@@ -83,6 +84,7 @@ const Card = ({ title,content,imageUrl,postId,token,posts,setPost,creator, userI
     editData.append('title' , editTitle)
     editData.append('content', editContent)
     if(editImage !== ''){
+      setIsEdit(true)
       editData.append('image', editImage)
     }
     editData.append('image', imageUrl)
@@ -97,13 +99,38 @@ const Card = ({ title,content,imageUrl,postId,token,posts,setPost,creator, userI
     }
     }).then((res)=>{
       console.log(res)
+      const UpdatedUrl = res.data.post.imageUrl
+      console.log(UpdatedUrl)
+      setUpdatedUrl(UpdatedUrl)
+
+
     
 
     }).catch((err)=>{
       console.log(err)
     })
 
+    setPost((prevPosts)=>{
+      const updatedPosts = prevPosts.map((post)=>{
+        if(post._id === postId){
+        return {
+          ...post,
+          title : editTitle ,
+          content : editContent,
+          // imageUrl : editImage
+        }
+      }
+      console.log('this is the updated post : ',post)
+      return post
 
+      })
+      console.log('this is the updated post : ',updatedPosts)
+
+      return updatedPosts
+    })
+
+    
+    closeModal();
   }
 
 
@@ -149,7 +176,7 @@ const Card = ({ title,content,imageUrl,postId,token,posts,setPost,creator, userI
               />
             )}
 
-            <button onClick={openModal} id="modal">
+            <button onClick={openModal} id="modal" className="btn ml-4 w-20 text-[#114B5F] border border-gray-400 hover:border-gray-500 pt-1 pb-1 rounded hover:text-[#114B5F] hover:bg-slate-100">
               Edit
             </button>
             <Modal
