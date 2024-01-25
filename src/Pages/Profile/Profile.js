@@ -9,6 +9,7 @@ import Card from "../../Components/Card";
 
 const Profile = () =>{
 
+     
     const[token ,setToken]= useState('')
     const [posts , setPosts] = useState([])
     const [user, setUser] = useState('')
@@ -51,6 +52,7 @@ useEffect(()=>{
               setPost = {setPosts}
               creator={post.creator.name}
               userId = {post.creator._id}
+              profile = {true}
             />
           </div>
         ))}

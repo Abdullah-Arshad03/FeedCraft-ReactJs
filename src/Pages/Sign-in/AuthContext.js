@@ -20,18 +20,14 @@ const AuthProvider = ({ children }) => {
 
     setTimeout(()=>{
       localStorage.removeItem('token')
+      localStorage.removeItem('userId')
 
     }, timeUntilExpiration)
-
-
-  
-
   };
 
   const removeToken = () => {
     localStorage.removeItem("token");
-
-
+    localStorage.removeItem('userId')
   };
 
   return (

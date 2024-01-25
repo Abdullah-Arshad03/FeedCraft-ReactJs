@@ -6,6 +6,7 @@ import Modal, { contextType } from "react-modal";
 import { useState } from "react";
 import axios from "axios";
 import Footer from "../../Components/Footer";
+import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from "react-router-dom";
 import openSocket from 'socket.io-client'
 
@@ -112,7 +113,7 @@ const navigate = useNavigate()
         console.log(response.data);
         closeModal();
         setPosts((posts) => [...posts, response.data.post]);
-    console.log('this is the form data',formData);
+        console.log('this is the form data',formData);
 
         
       })
@@ -236,6 +237,7 @@ const navigate = useNavigate()
               creator={post.creator.name}
               userId = {post.creator._id}
               oldImageFile = {Image}
+              profile = {false}
              
             />
           </div>

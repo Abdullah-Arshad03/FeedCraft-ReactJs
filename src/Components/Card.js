@@ -162,7 +162,7 @@ const Card = ({ title,content,imageUrl,postId,token,posts,setPost,creator, userI
             <p className="text-gray-600 mb-4">{content}</p>
             {!localStorage.getItem("token") || user !== userId ? (
               <></>
-            ) : (
+            ) : (<>
               <Button
                 color="#FBFCFA"
                 name="Delete"
@@ -172,11 +172,14 @@ const Card = ({ title,content,imageUrl,postId,token,posts,setPost,creator, userI
                 setPost={setPost}
                 postId={postId}
               />
-            )}
 
-            <button onClick={openModal} id="modal" className="btn ml-4 w-20 text-[#114B5F] border border-gray-400 hover:border-gray-500 pt-1 pb-1 rounded hover:text-[#114B5F] hover:bg-slate-100">
+              <button onClick={openModal} id="modal" className="btn ml-4 w-20 text-[#114B5F] border border-gray-400 hover:border-gray-500 pt-1 pb-1 rounded hover:text-[#114B5F] hover:bg-slate-100">
               Edit
             </button>
+            </>
+            )}
+
+           
             <Modal
               isOpen={modalIsOpen}
               onAfterOpen={afterOpenModal}
