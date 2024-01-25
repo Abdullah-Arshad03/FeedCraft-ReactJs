@@ -102,6 +102,18 @@ const navigate = useNavigate()
 
   const submit = (event) => {
     event.preventDefault();
+
+    if(Title.trim() === '' || Content.trim() === '' || Image === '' )
+    {
+      toast.error('Please Fill Feilds')
+    }
+    else if(Title.trim().length <=4 ){
+      toast.error('Title must contain atleast 5 characters')
+    }
+    else if(Content.trim().length <=4){
+      toast.error('Content must contain atleast 5 characters')
+    }
+    else{
     axios
       .post("http://localhost:8080/feed/post", formData, {
         headers: {
@@ -120,6 +132,7 @@ const navigate = useNavigate()
       .catch((error) => {
         console.error(error);
       });
+    }
   };
 
   return (
@@ -146,7 +159,7 @@ const navigate = useNavigate()
           )
           }
         </div>
-        
+        <Toaster/>
         {/* <ToastContainer autoClose={1000} /> */}
 
         <Modal

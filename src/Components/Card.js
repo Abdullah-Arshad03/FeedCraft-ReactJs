@@ -5,6 +5,8 @@ import Modal, { contextType } from "react-modal";
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
+import toast, { Toaster } from 'react-hot-toast';
+
 
 const customStyles = {
   content: {
@@ -75,8 +77,21 @@ const Card = ({ title,content,imageUrl,postId,token,posts,setPost,creator, userI
   const user = localStorage.getItem("userId");
 
   const onUpdate = (event)=>{
-
     event.preventDefault()
+
+
+    if(editTitle.trim() === '' || editContent.trim() === ''  )
+    {
+      toast.error('Title and Content must be filled')
+    }
+    else if(editTitle.trim().length <=4 ){
+      toast.error('Title must contain atleast 5 characters')
+    }
+    else if(editContent.trim().length <=4){
+      toast.error('Content must contain atleast 5 characters')
+    }
+    else{
+
     editData.append('title' , editTitle)
     editData.append('content', editContent)
     if(editImage !== ''){
@@ -105,7 +120,7 @@ const Card = ({ title,content,imageUrl,postId,token,posts,setPost,creator, userI
     }).catch((err)=>{
       console.log(err)
     })
-
+  
     setPost((prevPosts)=>{
       const updatedPosts = prevPosts.map((post)=>{
         if(post._id === postId){
@@ -126,6 +141,8 @@ const Card = ({ title,content,imageUrl,postId,token,posts,setPost,creator, userI
 
     
     closeModal();
+  }
+
   }
 
 
@@ -179,7 +196,7 @@ const Card = ({ title,content,imageUrl,postId,token,posts,setPost,creator, userI
             </>
             )}
 
-           
+           <Toaster/>
             <Modal
               isOpen={modalIsOpen}
               onAfterOpen={afterOpenModal}
