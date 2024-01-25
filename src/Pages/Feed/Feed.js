@@ -141,7 +141,7 @@ const navigate = useNavigate()
       <div className="post-button mt-2 flex justify-center">
         {/* <h1 id='modal'></h1> */}
 
-        <div className="post-button" id="modal">
+        <div className="post-button mb-7 mt-3" id="modal">
           {!localStorage.getItem('token') ? (
               <p className="text-[#114B5F] mb-4 font-semibold">Login/Register Now! to create your feed!</p>
           ):
@@ -236,9 +236,9 @@ const navigate = useNavigate()
         </Modal>
       </div>
 
-      <div className="flex justify-around items-center ">
+      <div className="flex justify-around items-center flex-wrap">
         {posts.map((post) => (
-          <div className="flex justify-around">
+          <div className="flex justify-around mb-10">
             <Card
               title={post.title}
               content={post.content}
