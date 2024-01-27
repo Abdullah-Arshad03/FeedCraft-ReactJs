@@ -37,12 +37,12 @@ useEffect(()=>{
 
     return(<>
     <Navbar feed={true}/>
-    <div className="heading mt-3 flex justify-center text-2xl font-semibold  items-center">
+    <div className="heading mt-5 mb-8 flex justify-center text-2xl font-semibold  items-center">
         <h1 className=""><span>{user}'s</span> Profile </h1>
     </div>
-    <div className="flex justify-around items-center ">
+    <div className="flex justify-around items-center flex-wrap">
         {posts.map((post) => (
-          <div className="flex justify-around">
+          <div className="flex justify-around mb-10">
             <Card
               title={post.title}
               content={post.content}

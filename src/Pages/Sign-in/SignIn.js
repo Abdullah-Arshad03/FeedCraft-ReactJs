@@ -101,6 +101,9 @@ const SignIn = () => {
             </div>
           </div>
           <div className="left-container bg-white border w-full sm:w-1/2 h-48 sm:h-96 flex justify-center items-center">
+
+
+
             <div className="information flex flex-col">
               <h1 className="heading text-2xl font-bold">Sign in</h1>
               <h4 className="sm:mt-auto">
@@ -153,6 +156,7 @@ const SignIn = () => {
               </form>
             </div>
           </div>
+          
         </div>
       
       </div>

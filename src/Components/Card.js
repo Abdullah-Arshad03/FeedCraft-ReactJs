@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
 import toast, { Toaster } from 'react-hot-toast';
+import { Link } from "react-router-dom";
 
 
 const customStyles = {
@@ -164,8 +165,8 @@ const Card = ({ title,content,imageUrl,postId,token,posts,setPost,creator, userI
             }}
           >
             <p>
-              {" "}
-              <span className="font-semibold text-sm">{creator}</span>{" "}
+            
+              <span className="font-semibold text-sm"> <Link to='/profile'>  {creator} </Link></span>{" "}
             </p>
             <span className="mt-1 ml-2 text-sm">posted this</span>
           </div>
