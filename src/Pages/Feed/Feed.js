@@ -39,7 +39,7 @@ const navigate = useNavigate()
 
   function openModal(event) {
     event.preventDefault();
-
+    console.log('true')
     setIsOpen(true);
   }
 
