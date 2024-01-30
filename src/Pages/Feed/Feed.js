@@ -8,7 +8,7 @@ import axios from "axios";
 import Footer from "../../Components/Footer";
 import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from "react-router-dom";
-import openSocket from 'socket.io-client'
+import {io} from 'socket.io-client'
 
 const customStyles = {
   content: {
@@ -89,8 +89,8 @@ const navigate = useNavigate()
         console.log(res);
         console.log('getting this : ',res.data.posts[0].creator.name);
         const postss = res.data.posts;
-
         setPosts(postss);
+        io('http://localhost:8080')
       })
       .catch((err) => {
         console.log(err);
