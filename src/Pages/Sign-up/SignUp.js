@@ -3,6 +3,7 @@ import { Link , useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Footer from "../../Components/Footer";
 import toast, {Toaster} from "react-hot-toast";
+import '../Sign-in/SignIn.css'
 
 const SignUp = () => {
 
@@ -64,8 +65,13 @@ const SignUp = () => {
 
   return (
     <>
-      <div className="sign-in-page flex justify-around align-middle bg-gray-200 w-100 h-[100vh] items-center ">
-        <div className="whole-container flex flex-col sm:flex-row w-full max-w-screen-md h-auto sm:h-96 items-center justify-center drop-shadow-lg">
+    
+    <div className="sign-in-page flex justify-around align-middle bg-gray-200 w-100 h-[100vh] items-center">
+      <div className="signin-left flex flex-col"> 
+        <p className="main-head text-7xl" style={{fontFamily : "'Poiret One', sans-serif"}}>FEED <br/> CRAFT</p>
+        <p className="rights text-xs"> &copy; Abdullah Bin Arshad</p>
+        </div>
+        <div className="signin-right whole-container flex flex-col sm:flex-row w-full max-w-screen-md h-auto sm:h-96 items-center justify-center drop-shadow-lg">
           <div className="right-container bg-[#f5e8de] w-full sm:w-1/3 h-48 sm:h-96 flex justify-center items-center">
             <div className="flex flex-col text-center sm:text-left">
               <h2
@@ -85,23 +91,23 @@ const SignUp = () => {
                 }}
                 className="text-2xl text-black"
               >
-                REGISTER NOW!
+                SIGN IN NOW!
               </h2>
             </div>
           </div>
           <div className="left-container bg-white border w-full sm:w-1/2 h-48 sm:h-96 flex justify-center items-center">
+
+
+
             <div className="information flex flex-col">
-              <h1 className="heading text-2xl font-bold">Sign up</h1>
-              <h4>
-                <span className="font-semibold">Welcome!</span> please enter
-                your details !
+             
+              <h4 className="heading-text-below sm:mt-auto">
+                <span className=" font-semibold">Welcome! Register </span> please,
+                enter your details!
               </h4>
-              <form
-                className="sign-in-form"
-                onSubmit={onSubmit}
-              >
+              <form className="sign-in-form" onSubmit={onSubmit}>
                 <div className="input-feilds flex flex-col">
-                  <input
+                <input
                     onChange={(event) => {
                       const name = event.target.value;
                       setName(name);
@@ -110,21 +116,20 @@ const SignUp = () => {
                     type="text"
                     placeholder="Enter your name"
                   ></input>
-
                   <input
-                    onChange={(event) => {
-                      const email = event.target.value;
-                      setemail(email);
+                    onChange={(event)=>{
+                      const email = event.target.value
+                     
+                      setemail(email)
                     }}
                     className="mb-2 border-1px-black pl-3 pr-3 pt-2 pb-2 border border-gray-300"
                     type="email"
                     placeholder="Enter your email"
                   ></input>
-
                   <input
-                    onChange={(event) => {
-                      const password = event.target.value;
-                      setPassword(password);
+                    onChange={(event)=>{
+                      const password = event.target.value
+                      setPassword(password)
                     }}
                     className="mb-2 border-1px-black pl-3 pr-3 pt-2 pb-2 border border-gray-300"
                     type="password"
@@ -135,37 +140,33 @@ const SignUp = () => {
                 <div className="buttons flex flex-col">
                   <button
                     type="submit"
-                    className="mb-2 border-1px-black pl-3 pr-3 pt-2 pb-2  bg-slate-300 text-black hover:bg-[#f5e8de] hover:text-black"
+                    className="mb-2 border-1px-black pl-3 pr-3 pt-2 pb-2 bg-slate-300 text-black hover:bg-[#f5e8de] hover:text-black"
                   >
-                    Register
+                    sign up
                   </button>
                 </div>
                 <br />
+                <br />
                 <div className="flex justify-center items-center">
                   <h4 className="">
-                    Already have an account ?{" "}
+                    If you have already an account {" "}
                     <span className="underline text-blue-600">
                       {" "}
-                      <Link to="/signin">sign in</Link>{" "}
+                      <Link to="/signin">sign in</Link>{""}
+                      <Toaster/>
                     </span>
-                    <Toaster/>
                   </h4>
                 </div>
               </form>
             </div>
           </div>
+          
         </div>
-        <div className="flex flex-col"> 
-        <p className="text-7xl" style={{fontFamily : "'Poiret One', sans-serif"}}>FEED <br/> CRAFT</p>
-        <p className="text-xs"> &copy; Abdullah Bin Arshad</p>
-        </div>
-
-        
+      
       </div>
       <div className=" text-sm text-center bg-[#f5e8de]">
         <Footer />
-      </div>
-    </>
+      </div>    </>
   );
 };
 

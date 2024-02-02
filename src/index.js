@@ -13,6 +13,7 @@ const app = (
     <BrowserRouter>
       <React.StrictMode>
         <App />
+
       </React.StrictMode>
     </BrowserRouter>
   </AuthProvider>

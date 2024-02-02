@@ -90,12 +90,11 @@ const navigate = useNavigate()
         console.log('getting this : ',res.data.posts[0].creator.name);
         const postss = res.data.posts;
         setPosts(postss);
-        io('http://localhost:8080')
+     
       })
       .catch((err) => {
         console.log(err);
       });
-      // openSocket('http://localhost:8080/')
  
 
   }, []);
@@ -124,6 +123,7 @@ const navigate = useNavigate()
       .then((response) => {
         console.log(response.data);
         closeModal();
+    
         setPosts((posts) => [...posts, response.data.post]);
         console.log('this is the form data',formData);
 

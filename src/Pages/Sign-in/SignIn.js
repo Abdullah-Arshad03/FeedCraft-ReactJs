@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import Footer from "../../Components/Footer";
 import { useAuth } from "./AuthContext";
 import toast, { Toaster } from 'react-hot-toast';
+import './SignIn.css'
 
 
 const SignIn = () => {
@@ -72,11 +73,11 @@ const SignIn = () => {
 
 
       <div className="sign-in-page flex justify-around align-middle bg-gray-200 w-100 h-[100vh] items-center">
-      <div className="flex flex-col"> 
-        <p className="text-7xl" style={{fontFamily : "'Poiret One', sans-serif"}}>FEED <br/> CRAFT</p>
-        <p className="text-xs"> &copy; Abdullah Bin Arshad</p>
+      <div className="signin-left flex flex-col"> 
+        <p className="main-head text-7xl" style={{fontFamily : "'Poiret One', sans-serif"}}>FEED <br/> CRAFT</p>
+        <p className="rights text-xs"> &copy; Abdullah Bin Arshad</p>
         </div>
-        <div className="whole-container flex flex-col sm:flex-row w-full max-w-screen-md h-auto sm:h-96 items-center justify-center drop-shadow-lg">
+        <div className="signin-right whole-container flex flex-col sm:flex-row w-full max-w-screen-md h-auto sm:h-96 items-center justify-center drop-shadow-lg">
           <div className="right-container bg-[#f5e8de] w-full sm:w-1/3 h-48 sm:h-96 flex justify-center items-center">
             <div className="flex flex-col text-center sm:text-left">
               <h2
@@ -106,7 +107,7 @@ const SignIn = () => {
 
             <div className="information flex flex-col">
               <h1 className="heading text-2xl font-bold">Sign in</h1>
-              <h4 className="sm:mt-auto">
+              <h4 className="heading-text-below sm:mt-auto">
                 <span className=" font-semibold">Welcome back! </span> please
                 enter your details!
               </h4>
